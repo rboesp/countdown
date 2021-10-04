@@ -1,8 +1,8 @@
-const days = document.getElementById("days")
-const hours = document.getElementById("hours")
-const minutes = document.getElementById("minutes")
-const seconds = document.getElementById("seconds")
-console.log(days, hours, minutes, seconds)
+// const daysEl = document.getElementById("days")
+// const hoursEl = document.getElementById("hours")
+// const minutesEl = document.getElementById("minutes")
+// const secondsEl = document.getElementById("seconds")
+// console.log(daysEl, hoursEl, minutesEl, secondsEl)
 
 const DD = "days"
 const HH = "hours"
@@ -25,21 +25,52 @@ const prev = {
     HH: MM, //
     MM: SS, //
 }
+console.log(resets, next, prev)
 
 /*STARTING VALUES */
 // const days = 0;
 // const hours = 0;
-const minutes = 1
-const seconds = 12
+// const render = (time, count) => (document.getElementById(time).innerHTML = count)
 
-const render = (time, count) => (document.getElementById(time).innerHTML = count)
+//for now
+let minutes = 1
+let seconds = 2
 
-const reduce = (time) => {}
+const reduce = (time) => {
+    if (time) {
+        time--
+        reset(prev[time])
+    }
+
+    //check over here
+    //return
+
+    reduce(time)
+}
 
 const reset = (time) => {}
 
 const startInterval = () => {
-    const i = setInterval(() => {}, 1000)
+    log(minutes + "\t" + seconds)
+    const i = setInterval(() => {
+        seconds--
+        log(minutes + "\t" + seconds)
+        if (seconds) return
+
+        //seconds ran out, reduce minute and work
+        //up from there if they also ran out
+        reduce(next[SS])
+
+        // clearInterval(i) //keep it going for now
+    }, 1000)
 
     return i
 }
+
+const log = (msg) => {
+    console.clear()
+    console.log(msg)
+}
+
+/*ENTRY POINT*/
+const timeInterval = startInterval()
