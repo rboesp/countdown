@@ -16,60 +16,81 @@ const resets = {
     //no reset for days because no months
 }
 const next = {
-    SS: MM, //
-    MM: HH, //
-    HH: DD, //
+    SS: "MM", //
+    MM: "HH", //
+    HH: "DD", //
 }
 const prev = {
-    DD: HH, //
-    HH: MM, //
-    MM: SS, //
+    DD: "HH", //
+    HH: "MM", //
+    MM: "SS", //
 }
 console.log(resets, next, prev)
 
 /*STARTING VALUES */
-// const days = 0;
-// const hours = 0;
-// const render = (time, count) => (document.getElementById(time).innerHTML = count)
 
 //for now
-let minutes = 1
-let seconds = 2
-
-const reduce = (time) => {
-    if (time) {
-        time--
-        reset(prev[time])
-    }
-
-    //check over here
-    //return
-
-    reduce(time)
+const timeValues = {
+    DD: 0,
+    HH: 0,
+    MM: 58,
+    SS: 30,
 }
 
-const reset = (time) => {}
+//functions
+
+// const render = (time, count) => (document.getElementById(time).innerHTML = count)
+
+const reduce = (time) => {
+    if (timeValues[time]) {
+        timeValues[time]--
+
+        //recursively reset all times lower
+        return reset(prev[time])
+    }
+
+    reduce(next[time])
+}
+
+const stopInterval = (i) => {
+    console.log("done!")
+    clearInterval(i)
+}
+
+const over = () => {
+    // console.log(timeValues)
+    return !timeValues.DD && !timeValues.HH && !timeValues.MM && !timeValues.SS
+}
+
+const reset = (time) => {
+    timeValues[`${time}`] = resets[time]
+    if (time !== "SS") reset(prev[time])
+}
 
 const startInterval = () => {
-    log(minutes + "\t" + seconds)
+    log(timeValues)
+
     const i = setInterval(() => {
-        seconds--
-        log(minutes + "\t" + seconds)
-        if (seconds) return
+        if (!timeValues.SS) {
+            //seconds ran out, reduce minute and work
+            //up from there if they also ran out
+            reduce(next["SS"])
+        }
 
-        //seconds ran out, reduce minute and work
-        //up from there if they also ran out
-        reduce(next[SS])
+        timeValues.SS--
 
-        // clearInterval(i) //keep it going for now
+        log(timeValues)
+
+        if (!over()) return
+        stopInterval(i)
     }, 1000)
 
     return i
 }
 
-const log = (msg) => {
+const log = (times) => {
     console.clear()
-    console.log(msg)
+    console.log(times.DD + " D\t" + times.HH + " H\t" + times.MM + " M\t" + times.SS + " S")
 }
 
 /*ENTRY POINT*/
