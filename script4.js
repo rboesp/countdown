@@ -9,12 +9,6 @@ const HH = "hours"
 const MM = "minutes"
 const SS = "seconds"
 
-const resets = {
-    SS: 59, //secs in mins--\
-    MM: 59, //mins in hrs----> -1
-    HH: 23, //hrs in days --/
-    //no reset for days because no months in countdown
-}
 const next = {
     SS: "MM",
     MM: "HH",
@@ -25,14 +19,16 @@ const prev = {
     HH: "MM",
     MM: "SS",
 }
-
-/*STARTING VALUES */
-
-//for now
+const resets = {
+    SS: 60, //secs in mins--\
+    MM: 59, //mins in hrs----> -1
+    HH: 24, //hrs in days --/
+    //no reset for days because no months in countdown
+}
 const timeValues = {
     DD: 0,
     HH: 1,
-    MM: 0,
+    MM: 1,
     SS: 0,
 }
 
@@ -93,4 +89,6 @@ const log = (times) => {
 }
 
 /*ENTRY POINT*/
-const timeInterval = startInterval()
+// const timeInterval = startInterval()
+
+console.log(moment().format())
