@@ -1,89 +1,94 @@
-let lastRun = false
+// const daysEl = document.getElementById("days")
+// const hoursEl = document.getElementById("hours")
+// const minutesEl = document.getElementById("minutes")
+// const secondsEl = document.getElementById("seconds")
+// console.log(daysEl, hoursEl, minutesEl, secondsEl)
 
-function startTimer({ domElement, start, reset, tick, cb }) {
-    let timeLeft = start
-    domElement.innerHTML = timeLeft
-    console.log(domElement.id + " " + timeLeft)
+const DD = "days"
+const HH = "hours"
+const MM = "minutes"
+const SS = "seconds"
+
+const next = {
+    SS: "MM",
+    MM: "HH",
+    HH: "DD",
+}
+const prev = {
+    DD: "HH",
+    HH: "MM",
+    MM: "SS",
+}
+const resets = {
+    SS: 60, //secs in mins--\
+    MM: 59, //mins in hrs----> -1
+    HH: 24, //hrs in days --/
+    //no reset for days because no months in countdown
+}
+const timeValues = {
+    DD: 0,
+    HH: 1,
+    MM: 1,
+    SS: 0,
+}
+
+//functions
+
+// const render = (time, count) => (document.getElementById(time).innerHTML = count)
+
+const reduce = (time) => {
+    if (timeValues[time]) {
+        timeValues[time]--
+
+        //recursively reset all times lower
+        return reset(prev[time])
+    }
+
+    reduce(next[time])
+}
+
+const stopInterval = (i) => {
+    console.log("done!")
+    clearInterval(i)
+}
+
+const over = () => {
+    // console.log(timeValues)
+    return !timeValues.DD && !timeValues.HH && !timeValues.MM && !timeValues.SS
+}
+
+const reset = (time) => {
+    timeValues[`${time}`] = resets[time]
+    if (time !== "SS") reset(prev[time])
+}
+
+const startInterval = () => {
+    log(timeValues)
+
     const i = setInterval(() => {
-        if (timeLeft) --timeLeft
-        domElement.innerHTML = timeLeft
-        if (timeLeft <= 0) {
-            cb(i, lastRun)
-            timeLeft = reset
+        if (!timeValues.SS) {
+            //seconds ran out, reduce minute and work
+            //up from there if they also ran out
+            reduce(next["SS"])
         }
-    }, tick || 1000)
+
+        timeValues.SS--
+
+        log(timeValues)
+
+        if (!over()) return
+        stopInterval(i)
+    }, 1000)
 
     return i
 }
 
-$(document).ready(() => {
-    const days = document.getElementById("days")
-    // const hours = document.getElementById("hours")
-    // const minutes = document.getElementById("minutes")
-    const seconds = document.getElementById("seconds")
-    // console.log(days, hours, minutes, seconds)
+const log = (times) => {
+    console.clear()
+    console.log(times.DD + " D\t" + times.HH + " H\t" + times.MM + " M\t" + times.SS + " S")
+}
 
-    // const dayStart = 60 //seconds in minute
-    // const hourStart =
-    // const minuteStart =
-    // const secondStart =
+/*ENTRY POINT*/
+// const timeInterval = startInterval()
 
-    const timeOptions = [
-        {
-            domElement: days, //minutes for now instead
-            start: 1,
-            reset: 2,
-            tick: 2 * 1000,
-            cb: (i) => {
-                console.log("done!")
-
-                //TODO: here tell the other intervals it's the last run
-                lastRun = true
-
-                clearInterval(i) //clear because this one doesn't ever reset
-            },
-        },
-        // {
-        //     domElement: hours,
-        //     start: 59,
-        //     reset: 59,
-        //     cb: null,
-        // },
-        // {
-        //     domElement: minutes,
-        //     start: 59,
-        //     reset: 59,
-        //     cb: null,
-        // },
-        {
-            domElement: seconds,
-            start: 2,
-            reset: 2,
-            cb: (i, lastRun) => {
-                //if not last run let run
-                if (!lastRun) return //this will not work as expected with arrow here!
-
-                //if here countdown done!
-                clearInterval(i)
-
-                //here can set anything that needs to wait
-                //until countdown fully over
-            },
-        },
-    ]
-
-    const intervalIds = timeOptions.map((option) => startTimer(option))
-
-    function clearIntervals() {
-        intervalIds.forEach((i) => {
-            clearInterval(i)
-        })
-    }
-    // console.log(intervalIds)
-
-    // setTimeout(() => {
-    //     intervalIds.forEach((i) => {
-    //         clearInterval(i)
-    //     })
-    // }, 11000)
-})
+console.log(moment().format())
