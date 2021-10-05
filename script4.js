@@ -10,31 +10,30 @@ const MM = "minutes"
 const SS = "seconds"
 
 const resets = {
-    SS: 59, //secs in mins
-    MM: 59, //mins in hrs
-    HH: 24, //hrs in days
-    //no reset for days because no months
+    SS: 59, //secs in mins--\
+    MM: 59, //mins in hrs----> -1
+    HH: 23, //hrs in days --/
+    //no reset for days because no months in countdown
 }
 const next = {
-    SS: "MM", //
-    MM: "HH", //
-    HH: "DD", //
+    SS: "MM",
+    MM: "HH",
+    HH: "DD",
 }
 const prev = {
-    DD: "HH", //
-    HH: "MM", //
-    MM: "SS", //
+    DD: "HH",
+    HH: "MM",
+    MM: "SS",
 }
-console.log(resets, next, prev)
 
 /*STARTING VALUES */
 
 //for now
 const timeValues = {
     DD: 0,
-    HH: 0,
-    MM: 58,
-    SS: 30,
+    HH: 1,
+    MM: 0,
+    SS: 0,
 }
 
 //functions
