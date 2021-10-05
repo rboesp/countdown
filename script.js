@@ -4,47 +4,50 @@
 // const secondsEl = document.getElementById("seconds")
 // console.log(daysEl, hoursEl, minutesEl, secondsEl)
 
-const DD = "days"
-const HH = "hours"
-const MM = "minutes"
-const SS = "seconds"
+//KNOWN CONSTANTS
 
-const next = {
+/*
+Used to know which time period to reduce
+when a lower time period has reached 0
+Ex: After hours has reached 0, reduce days 
+*/
+const timeLabelOrderUp = {
     SS: "MM",
     MM: "HH",
     HH: "DD",
 }
-const prev = {
+
+/*
+Used to know which lower time period to reset 
+when a higher time period has been reduced
+Ex: After reducing minutes, reet seconds
+*/
+const timeLabelOrderDown = {
     DD: "HH",
     HH: "MM",
     MM: "SS",
 }
-const resets = {
-    SS: 60, //secs in mins--\
-    MM: 59, //mins in hrs----> -1
-    HH: 24, //hrs in days --/
+
+const timeValueResets = {
+    SS: 60, //secs in min (one sec is reduced right away so shows as 59)
+    MM: 59, //mins in hrs -1
+    HH: 23, //hrs in days -1
     //no reset for days because no months in countdown
 }
-const timeValues = {
-    DD: 0,
-    HH: 1,
-    MM: 1,
-    SS: 0,
-}
 
-//functions
+/*FUNCTIONS */
 
 // const render = (time, count) => (document.getElementById(time).innerHTML = count)
 
-const reduce = (time) => {
-    if (timeValues[time]) {
-        timeValues[time]--
+const reduce = (timeLabel) => {
+    if (timeValues[timeLabel]) {
+        timeValues[timeLabel]--
 
         //recursively reset all times lower
-        return reset(prev[time])
+        return reset(timeLabelOrderDown[timeLabel])
     }
 
-    reduce(next[time])
+    reduce(timeLabelOrderUp[timeLabel])
 }
 
 const stopInterval = (i) => {
@@ -57,9 +60,9 @@ const over = () => {
     return !timeValues.DD && !timeValues.HH && !timeValues.MM && !timeValues.SS
 }
 
-const reset = (time) => {
-    timeValues[`${time}`] = resets[time]
-    if (time !== "SS") reset(prev[time])
+const reset = (timeLabel) => {
+    timeValues[`${timeLabel}`] = timeValueResets[timeLabel]
+    if (timeLabel !== "SS") reset(timeLabelOrderDown[timeLabel])
 }
 
 const startInterval = () => {
@@ -69,7 +72,7 @@ const startInterval = () => {
         if (!timeValues.SS) {
             //seconds ran out, reduce minute and work
             //up from there if they also ran out
-            reduce(next["SS"])
+            reduce(timeLabelOrderUp["SS"])
         }
 
         timeValues.SS--
@@ -83,12 +86,30 @@ const startInterval = () => {
     return i
 }
 
+/**FOR TESTING ONLY */
 const log = (times) => {
     console.clear()
     console.log(times.DD + " D\t" + times.HH + " H\t" + times.MM + " M\t" + times.SS + " S")
 }
 
 /*ENTRY POINT*/
-// const timeInterval = startInterval()
 
-console.log(moment().format())
+const moment = require("moment")
+
+//get initial values needed for each time period of the countdown
+const openEnrollmentStartDate = moment([2021, 9, 15])
+const now = moment(moment.now())
+const { _data } = moment.duration(openEnrollmentStartDate.diff(now))
+const { seconds: SS, minutes: MM, hours: HH, days: DD } = _data
+// console.log(`${DD} : ${HH} : ${MM} : ${SS}`)
+
+//set initial values
+const timeValues = {
+    DD,
+    HH,
+    MM,
+    SS,
+}
+
+//start countdown here
+startInterval()
