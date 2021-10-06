@@ -1,8 +1,9 @@
-// const daysEl = document.getElementById("days")
-// const hoursEl = document.getElementById("hours")
-// const minutesEl = document.getElementById("minutes")
-// const secondsEl = document.getElementById("seconds")
-// console.log(daysEl, hoursEl, minutesEl, secondsEl)
+const daysEl = document.getElementById("DD")
+const hoursEl = document.getElementById("HH")
+const minutesEl = document.getElementById("MM")
+const secondsEl = document.getElementById("SS")
+const timeElements = [daysEl, hoursEl, minutesEl, secondsEl]
+console.log(timeElements)
 
 //KNOWN CONSTANTS
 
@@ -37,7 +38,12 @@ const timeValueResets = {
 
 /*FUNCTIONS */
 
-// const render = (time, count) => (document.getElementById(time).innerHTML = count)
+const render = () => {
+    timeElements.forEach(({ id }) => {
+        const count = timeValues[id]
+        document.getElementById(id).innerHTML = count
+    })
+}
 
 const reduce = (timeLabel) => {
     if (timeValues[timeLabel]) {
@@ -51,8 +57,9 @@ const reduce = (timeLabel) => {
 }
 
 const stopInterval = (i) => {
-    console.log("done!")
     clearInterval(i)
+    console.log("countdown done!")
+    document.getElementById("parent").style.display = "none"
 }
 
 const over = () => {
@@ -66,7 +73,8 @@ const reset = (timeLabel) => {
 }
 
 const startInterval = () => {
-    log(timeValues)
+    // log(timeValues)
+    render()
 
     const i = setInterval(() => {
         if (!timeValues.SS) {
@@ -77,7 +85,8 @@ const startInterval = () => {
 
         timeValues.SS--
 
-        log(timeValues)
+        render()
+        // log(timeValues)
 
         if (!over()) return
         stopInterval(i)
@@ -94,21 +103,21 @@ const log = (times) => {
 
 /*ENTRY POINT*/
 
-const moment = require("moment")
+// const moment = require("moment")
 
 //get initial values needed for each time period of the countdown
-const openEnrollmentStartDate = moment([2021, 9, 15])
-const now = moment(moment.now())
-const { _data } = moment.duration(openEnrollmentStartDate.diff(now))
-const { seconds: SS, minutes: MM, hours: HH, days: DD } = _data
+// const openEnrollmentStartDate = moment([2021, 9, 15])
+// const now = moment(moment.now())
+// const { _data } = moment.duration(openEnrollmentStartDate.diff(now))
+// const { seconds: SS, minutes: MM, hours: HH, days: DD } = _data
 // console.log(`${DD} : ${HH} : ${MM} : ${SS}`)
 
 //set initial values
 const timeValues = {
-    DD,
-    HH,
-    MM,
-    SS,
+    DD: 0,
+    HH: 0,
+    MM: 0,
+    SS: 1,
 }
 
 //start countdown here
