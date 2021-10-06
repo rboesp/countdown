@@ -1,5 +1,5 @@
 :root {
-    --li-transform-animation-duration: 400s;
+    --MM-animation-duration: "none";
 }
 
 .circleProgress_wrapper {
@@ -53,13 +53,13 @@
     animation: circleProgressLoad_left 60s linear infinite forwards;
 }
 .right_cartoon_MM {
-    -webkit-animation: circleProgressLoad_right var(--li-transform-animation-duration) linear infinite forwards;
-    animation: circleProgressLoad_right var(--li-transform-animation-duration) linear infinite forwards;
+    -webkit-animation: circleProgressLoad_right var(--MM-animation-duration) linear infinite forwards;
+    animation: circleProgressLoad_right var(--MM-animation-duration) linear infinite forwards;
 }
 .left_cartoon_MM {
     /* border: 1px dashed red; */
-    -webkit-animation: circleProgressLoad_left var(--li-transform-animation-duration) linear infinite forwards;
-    animation: circleProgressLoad_left var(--li-transform-animation-duration) linear infinite forwards;
+    -webkit-animation: circleProgressLoad_left var(--MM-animation-duration) linear infinite forwards;
+    animation: circleProgressLoad_left var(--MM-animation-duration) linear infinite forwards;
 }
 
 @keyframes circleProgressLoad_right {

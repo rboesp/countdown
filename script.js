@@ -12,10 +12,6 @@ console.log(timeElements)
 // }
 // window.setTimeout(change, 5)
 
-let root = document.documentElement
-
-root.style.setProperty("--li-transform-animation-duration", "600s")
-
 //KNOWN CONSTANTS
 
 /*
@@ -117,19 +113,26 @@ const log = (times) => {
 // const moment = require("moment")
 
 //get initial values needed for each time period of the countdown
-// const openEnrollmentStartDate = moment([2021, 9, 15])
-// const now = moment(moment.now())
-// const { _data } = moment.duration(openEnrollmentStartDate.diff(now))
-// const { seconds: SS, minutes: MM, hours: HH, days: DD } = _data
-// console.log(`${DD} : ${HH} : ${MM} : ${SS}`)
+const openEnrollmentStartDate = moment([2021, 9, 15])
+const now = moment(moment.now())
+const { _data } = moment.duration(openEnrollmentStartDate.diff(now))
+const { seconds: SS, minutes: MM, hours: HH, days: DD } = _data
+console.log(`${DD} : ${HH} : ${MM} : ${SS}`)
+
+let root = document.documentElement
+
+const convert = (parseInt(MM) * 60).toString() + "s"
+console.log(convert)
+root.style.setProperty("--MM-animation-duration", convert)
+document.getElementById("MM").innerHTML = MM
 
 //set initial values
 const timeValues = {
     // DD,
     // HH,
-    MM: 10,
+    MM,
     SS: 0,
 }
 
 //start countdown here
-startInterval()
+// startInterval()
