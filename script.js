@@ -106,18 +106,18 @@ const log = (times) => {
 // const moment = require("moment")
 
 //get initial values needed for each time period of the countdown
-// const openEnrollmentStartDate = moment([2021, 9, 15])
-// const now = moment(moment.now())
-// const { _data } = moment.duration(openEnrollmentStartDate.diff(now))
-// const { seconds: SS, minutes: MM, hours: HH, days: DD } = _data
-// console.log(`${DD} : ${HH} : ${MM} : ${SS}`)
+const openEnrollmentStartDate = moment([2021, 9, 15])
+const now = moment(moment.now())
+const { _data } = moment.duration(openEnrollmentStartDate.diff(now))
+const { seconds: SS, minutes: MM, hours: HH, days: DD } = _data
+console.log(`${DD} : ${HH} : ${MM} : ${SS}`)
 
 //set initial values
 const timeValues = {
-    DD: 0,
-    HH: 0,
-    MM: 0,
-    SS: 1,
+    DD,
+    HH,
+    MM,
+    SS,
 }
 
 //start countdown here
