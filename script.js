@@ -5,6 +5,10 @@ const secondsEl = document.getElementById("SS")
 const timeElements = [/*daysEl, hoursEl,*/ minutesEl, secondsEl]
 console.log(timeElements)
 
+const left = document.getElementById("poop")
+console.log(left)
+left.style.animation = "circleProgressLoad_left 600s linear infinite forwards;"
+
 //KNOWN CONSTANTS
 
 /*

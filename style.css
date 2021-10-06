@@ -41,23 +41,24 @@
     transform: rotate(90deg);
 }
 .right_cartoon_SS {
-    -webkit-animation: circleProgressLoad_right_SS 60s linear infinite forwards;
-    animation: circleProgressLoad_right_SS 60s linear infinite forwards;
+    -webkit-animation: circleProgressLoad_right 60s linear infinite forwards;
+    animation: circleProgressLoad_right 60s linear infinite forwards;
 }
 .left_cartoon_SS {
-    -webkit-animation: circleProgressLoad_left_SS 60s linear infinite forwards;
-    animation: circleProgressLoad_left_SS 60s linear infinite forwards;
+    -webkit-animation: circleProgressLoad_left 60s linear infinite forwards;
+    animation: circleProgressLoad_left 60s linear infinite forwards;
 }
 .right_cartoon_MM {
-    -webkit-animation: circleProgressLoad_right_SS 600s linear infinite forwards;
-    animation: circleProgressLoad_right_SS 600s linear infinite forwards;
+    -webkit-animation: circleProgressLoad_right 600s linear infinite forwards;
+    animation: circleProgressLoad_right 600s linear infinite forwards;
 }
 .left_cartoon_MM {
-    -webkit-animation: circleProgressLoad_left_MM 600s linear infinite forwards;
-    animation: circleProgressLoad_left_MM 600s linear infinite forwards;
+    /* border: 1px dashed red; */
+    /* -webkit-animation: circleProgressLoad_left 600s linear infinite forwards;
+    animation: circleProgressLoad_left 600s linear infinite forwards; */
 }
 
-@keyframes circleProgressLoad_right_SS {
+@keyframes circleProgressLoad_right {
     0% {
         -webkit-transform: rotate(46deg);
         transform: rotate(46deg);
@@ -70,33 +71,7 @@
     }
 }
 
-@keyframes circleProgressLoad_left_SS {
-    0%,
-    50% {
-        -webkit-transform: rotate(46deg);
-        transform: rotate(46deg);
-    }
-
-    to {
-        -webkit-transform: rotate(-136deg);
-        transform: rotate(-136deg);
-    }
-}
-
-@keyframes circleProgressLoad_right_MM {
-    0% {
-        -webkit-transform: rotate(46deg);
-        transform: rotate(46deg);
-    }
-
-    50%,
-    to {
-        -webkit-transform: rotate(-136deg);
-        transform: rotate(-136deg);
-    }
-}
-
-@keyframes circleProgressLoad_left_MM {
+@keyframes circleProgressLoad_left {
     0%,
     50% {
         -webkit-transform: rotate(46deg);
