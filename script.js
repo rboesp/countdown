@@ -1,8 +1,8 @@
-const daysEl = document.getElementById("DD")
-const hoursEl = document.getElementById("HH")
+// const daysEl = document.getElementById("DD")
+// const hoursEl = document.getElementById("HH")
 const minutesEl = document.getElementById("MM")
 const secondsEl = document.getElementById("SS")
-const timeElements = [daysEl, hoursEl, minutesEl, secondsEl]
+const timeElements = [/*daysEl, hoursEl,*/ minutesEl, secondsEl]
 console.log(timeElements)
 
 //KNOWN CONSTANTS
@@ -106,18 +106,18 @@ const log = (times) => {
 // const moment = require("moment")
 
 //get initial values needed for each time period of the countdown
-const openEnrollmentStartDate = moment([2021, 9, 15])
-const now = moment(moment.now())
-const { _data } = moment.duration(openEnrollmentStartDate.diff(now))
-const { seconds: SS, minutes: MM, hours: HH, days: DD } = _data
-console.log(`${DD} : ${HH} : ${MM} : ${SS}`)
+// const openEnrollmentStartDate = moment([2021, 9, 15])
+// const now = moment(moment.now())
+// const { _data } = moment.duration(openEnrollmentStartDate.diff(now))
+// const { seconds: SS, minutes: MM, hours: HH, days: DD } = _data
+// console.log(`${DD} : ${HH} : ${MM} : ${SS}`)
 
 //set initial values
 const timeValues = {
-    DD,
-    HH,
-    MM,
-    SS,
+    // DD,
+    // HH,
+    MM: 10,
+    SS: 0,
 }
 
 //start countdown here
