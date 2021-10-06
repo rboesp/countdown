@@ -5,9 +5,16 @@ const secondsEl = document.getElementById("SS")
 const timeElements = [/*daysEl, hoursEl,*/ minutesEl, secondsEl]
 console.log(timeElements)
 
-const left = document.getElementById("poop")
-console.log(left)
-left.style.animation = "circleProgressLoad_left 600s linear infinite forwards;"
+// function change() {
+//     const left = document.getElementById("poop")
+//     console.log(left)
+//     left.style.animation = "circleProgressLoad_left 600s linear infinite forwards;"
+// }
+// window.setTimeout(change, 5)
+
+let root = document.documentElement
+
+root.style.setProperty("--li-transform-animation-duration", "600s")
 
 //KNOWN CONSTANTS
 
